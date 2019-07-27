@@ -1,0 +1,78 @@
+{% load static %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />-->
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newslister</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h2>News-Lister</h2>
+        <form action="" method="GET">
+           <div id="custom-search-input">
+                 <div class="input-group col-md-12">
+                       <input type="search" class="  search-query form-control" placeholder="Search" name = "search_string"/>
+                       <span class="input-group-btn">
+                              <button class="btn btn-danger" type="submit">
+                                    <span class=" glyphicon glyphicon-search"></span>
+                              </button>
+                       </span>
+                 </div>
+           </div>
+        </form>
+	</div>
+</div>
+
+
+<div class="container">
+{% for e in data %}
+<div class="row">
+  <div class="span8">
+    <div class="row">
+      <div class="span8">
+        <h4><strong><a href={{e.webUrl}} target="_blank">{{ e.fields.headline }}</a></strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+          {% if e.fields.thumbnail %}
+          <a href={{ e.fields.thumbnail }}  class="thumbnail" target="_blank">
+            <img src={{ e.fields.thumbnail }} alt="">
+              {% else %}
+              <a href='/static/default.png'  class="thumbnail" target="_blank">
+            <img src='/static/default.png' class="thumbnail">
+              {% endif %}
+        </a>
+      </div>
+      <div class="span6">
+        <p>
+
+        </p>
+        <p><a class="btn btn-success btn-sm active" href={{e.webUrl}} target="_blank">Read more</a></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <p></p>
+        <p>
+          <i class="icon-tags"></i> Tags :
+            {% for tag in e.tags %}
+            <a href={{tag.webUrl}} target="_blank"><span class="label label-info">{{tag.webTitle}}</span></a> ||
+            {% endfor %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+    {% endfor %}</div>
+</body>
+</html>
